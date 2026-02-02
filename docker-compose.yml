@@ -2,12 +2,13 @@
 
 services:
   openclaw-gateway:
+    # 你的镜像构建命令
     build: .
-    image: openclaw_custom:fixed
+    image: 591124281yj228/openclaw_ready:latest
     container_name: openclaw-gateway
     restart: unless-stopped
     
-    # ❌ 这一行一定要删掉！默认让它用 Root 启动
+    # ❌ 这一行一定要删掉！默认让它用 Root 启动，脚本会自动降级
     # user: "1000:1000"
 
     working_dir: /app
@@ -21,10 +22,19 @@ services:
       - OPENCLAW_PREFER_PNPM=1
 
     volumes:
-      # 必须映射到 /home/node 下，因为启动脚本修的是这里
+      # ⬇️ 【关键修复】把这里全部改回 /home/node
+      # 这样脚本在 /home/node 目录下才能找到这些文件并修复权限
+      
+      # 1. 核心数据
       - ./data:/home/node/.openclaw
+      
+      # 2. Agent 工作区
       - ./workspace:/home/node/clawd
+      
+      # 3. 浏览器缓存
       - ./chrome-data:/home/node/.config/chromium
+      
+      # 4. 挂载扩展脚本
       - ./install_all.sh:/app/install_all.sh
 
     ports:
