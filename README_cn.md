@@ -1,52 +1,52 @@
----
+# 🦞 OpenClaw 自定义 Docker：“无限”版
 
-### 📄 文件 2：中文版 (README_CN.md)
-
-```markdown
-# 🦞 OpenClaw 自定义镜像：无界版 (Limitless Edition)
-
-> **解锁 OpenClaw 的全部潜能：集成 Homebrew、Python AI 全栈环境及动态扩展能力。**
-> *打破官方镜像的限制，赋予你的 Agent 运行时安装任何工具的能力。*
+> **解锁 OpenClaw 的全部潜力：集成 Homebrew、Python AI 栈和动态工具扩展。**
+> *不再受限。赋予您的 Agent 在运行时安装任何工具的能力。*
 
 [![Docker Image](https://img.shields.io/badge/Docker%20Hub-591124281yj228%2Fopenclaw__ready-blue?logo=docker&logoColor=white)](https://hub.docker.com/r/591124281yj228/openclaw_ready) ![Homebrew](https://img.shields.io/badge/Homebrew-Integrated-orange?logo=homebrew) ![OpenClaw](https://img.shields.io/badge/OpenClaw-Compatible-green)
 
+
+[![Docker Image Version](https://img.shields.io/docker/v/591124281yj228/openclaw_ready/latest)](https://hub.docker.com/r/591124281yj228/openclaw_ready)
+
+> **Docker Hub 仓库地址：** [https://hub.docker.com/r/591124281yj228/openclaw_ready](https://hub.docker.com/r/591124281yj228/openclaw_ready)
+
+---
 ---
 
-## 🧐 为什么要搞这个项目？
+## 🧐 为什么会有这个项目？
 
 ### 官方镜像的痛点
-出于安全考虑，官方镜像使用非 root 用户 (`USER node`) 运行。这意味着**你无法使用 `apt-get` 安装软件**，也无法在不重新构建整个镜像的情况下临时添加工具。
+OpenClaw 的官方 Docker 镜像出于安全考虑，强制以非 root 用户 (`USER node`) 运行。虽然这很安全，但也意味着 **你无法运行 `apt-get install`**，更无法在不重新构建整个镜像的情况下，在运行时动态添加像 `ffmpeg`、`yt-dlp` 这样的工具或复杂的 Python 库。
 
-### 我们的解决方案：无界版
-我们通过在镜像中预装 **Homebrew (Linuxbrew)** 解决了这个问题。这使得以 `node` 用户运行的 Agent 无需 root 权限，即可将软件包安装到自己的主目录中。
+### 解决方案：“无限”版
+我们通过将 **Homebrew (Linuxbrew)** 直接集成到镜像中解决了这个问题。这允许 Agent（以 `node` 身份运行）将软件包安装到它自己的家目录中，而 *无需* root 权限。
 
 ---
 
-## 📂 项目结构说明 (重要!)
+## 📂 项目结构（重要！）
 
-请务必参照下图 (`01.png`) 确认您的目录结构。
+请确认您的目录结构与下方的截图 (`01.png`) 保持一致。
 
-**我们的自定义环境文件位于【项目根目录】，而 OpenClaw 官方源码则位于名为 `openclaw_custom` 的子文件夹中。**
+**注意：自定义配置文件位于项目的【根目录】下，而官方源代码则位于【子文件夹】中。**
 
-![项目结构截图](01.png)
+![Project Structure Screenshot](01.png)
 
-### 详细目录层级
+### 目录布局
 
 ```text
 .
-├── 01.png                  <-- 项目截图
-├── README.md               <-- 英文说明
-├── README_CN.md            <-- 本文件
+├── 01.png                  <-- 项目结构截图
+├── README.md               <-- 本说明文件
 │
-├── ⭐ docker-compose.yml   <-- [自定义] 主启动文件 (在此处运行命令)
-├── ⭐ install_all.sh       <-- [自定义] 扩展脚本
-├── ⭐ Dockerfile           <-- [自定义] 增强版构建文件
+├── ⭐ docker-compose.yml   <-- [自定义] 主配置文件 (请运行这个!)
+├── ⭐ install_all.sh       <-- [自定义] “魔法脚本” (扩展安装工具)
+├── ⭐ Dockerfile           <-- [自定义] 增强版构建文件
 │
-├── 📁 openclaw_custom/     <-- [官方] 源代码子目录
-│   ├── src/
-│   ├── package.json
-│   └── ...
+├── 📁 openclaw_custom/     <-- [官方] 源代码子文件夹
+│   ├── src/
+│   ├── package.json
+│   └── ...
 │
-├── 📁 data/                <-- [自动生成] 数据持久化目录
-├── 📁 workspace/           <-- [自动生成] Agent 工作区
-└── 📁 chrome-data/         <-- [自动生成] 浏览器缓存目录
+├── 📁 data/                <-- [自动生成] 持久化数据
+├── 📁 workspace/           <-- [自动生成] Agent 工作区
+└── 📁 chrome-data/         <-- [自动生成] 浏览器会话数据

@@ -5,6 +5,12 @@
 
 [![Docker Image](https://img.shields.io/badge/Docker%20Hub-591124281yj228%2Fopenclaw__ready-blue?logo=docker&logoColor=white)](https://hub.docker.com/r/591124281yj228/openclaw_ready) ![Homebrew](https://img.shields.io/badge/Homebrew-Integrated-orange?logo=homebrew) ![OpenClaw](https://img.shields.io/badge/OpenClaw-Compatible-green)
 
+
+[![Docker Image Version](https://img.shields.io/docker/v/591124281yj228/openclaw_ready/latest)](https://hub.docker.com/r/591124281yj228/openclaw_ready)
+
+> **Docker Hub Repository:** [https://hub.docker.com/r/591124281yj228/openclaw_ready](https://hub.docker.com/r/591124281yj228/openclaw_ready)
+
+---
 ---
 
 ## 🧐 Why This Project?
