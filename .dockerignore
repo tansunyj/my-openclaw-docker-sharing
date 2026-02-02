@@ -1,0 +1,7 @@
+﻿# 忽略所有的 node_modules 文件夹（这是导致报错的根源）
+**/node_modules
+# 忽略其他的临时文件夹
+.git
+.DS_Store
+dist
+*.bak
