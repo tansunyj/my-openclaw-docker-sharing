@@ -17,27 +17,30 @@ We solved this by integrating **Homebrew (Linuxbrew)** directly into the image. 
 
 ---
 
-## 📂 Project Structure & Origin
+## 📂 Project Structure (Important!)
 
-It is crucial to understand the folder structure to run this project correctly.
+Please verify your directory structure matches the screenshot below (`01.png`).
 
-**As shown in the screenshot below (`01.png`), the core environment files are located inside the `openclaw_custom` folder.**
+**The custom configuration files reside in the ROOT directory, while the official source code sits in a sub-folder.**
 
 ![Project Structure Screenshot](01.png)
 
 ### Directory Layout
 
-The `openclaw_custom` directory is a **hybrid**: it contains the source code cloned from the **[Official OpenClaw Repository](https://github.com/openclaw/openclaw)**, overlayed with our custom Docker environment files.
-
 ```text
 .
-├── 01.png              <-- Screenshot
-├── README.md           <-- This file
-├── README_CN.md        <-- Chinese documentation
+├── 01.png                  <-- Project screenshot
+├── README.md               <-- This file
 │
-└── openclaw_custom/    <-- 🚨 CORE WORKING DIRECTORY 🚨
-    │                       (Base: [https://github.com/openclaw/openclaw](https://github.com/openclaw/openclaw))
-    ├── docker-compose.yml  <-- [Custom] Main setup file
-    ├── install_all.sh      <-- [Custom] The "Magic Script"
-    ├── Dockerfile          <-- [Custom] Enhanced build file
-    └── ... (Official OpenClaw Source Files)
+├── ⭐ docker-compose.yml   <-- [Custom] Main setup file (Run this!)
+├── ⭐ install_all.sh       <-- [Custom] The "Magic Script"
+├── ⭐ Dockerfile           <-- [Custom] Enhanced build file
+│
+├── 📁 openclaw_custom/     <-- [Official] Source Code Sub-folder
+│   ├── src/
+│   ├── package.json
+│   └── ...
+│
+├── 📁 data/                <-- [Auto] Persistent Data
+├── 📁 workspace/           <-- [Auto] Agent Workspace
+└── 📁 chrome-data/         <-- [Auto] Browser Session Data
