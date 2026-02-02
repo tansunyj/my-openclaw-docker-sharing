@@ -1,38 +1,36 @@
 ﻿version: '3.8'
 
 services:
-  openclaw:
+  openclaw-gateway:
     build: .
-    image: openclaw_ready:latest
+    image: openclaw_custom:fixed
     container_name: openclaw-gateway
     restart: unless-stopped
     
-    ports:
-      - "18789:18789"
+    # ❌ 这一行一定要删掉！默认让它用 Root 启动
+    # user: "1000:1000"
 
-    volumes:
-      # 持久化数据（配置、数据库、日志）
-      - ./data:/home/node/.openclaw
-      # 持久化工作空间（下载的文件、临时处理的文件）
-      - ./workspace:/home/node/clawd
-      # 持久化浏览器缓存（防止每次扫码）
-      - ./chrome-data:/home/node/.config/chromium
-      # 挂载你的“增强功能”扩展脚本
-      - ./install_all.sh:/app/install_all.sh
+    working_dir: /app
 
     environment:
+      # 必须指向 /home/node，因为最终我们会切换成 node 用户
+      - HOME=/home/node
       - NODE_ENV=production
-      # ⬇️ 【核心：安全门禁】 ⬇️
-      # 设置你的访问密码。启动后，UI 登录界面会要求输入这个 Token。
       - OPENCLAW_GATEWAY_TOKEN=admin123456
-      
-      # 告诉程序你的数据存放在哪
       - CLAWDBOT_CONFIG_PATH=/home/node/.openclaw/config.json
-      
-      # 适配 pnpm 路径
       - OPENCLAW_PREFER_PNPM=1
+
+    volumes:
+      # 必须映射到 /home/node 下，因为启动脚本修的是这里
+      - ./data:/home/node/.openclaw
+      - ./workspace:/home/node/clawd
+      - ./chrome-data:/home/node/.config/chromium
+      - ./install_all.sh:/app/install_all.sh
+
+    ports:
+      - "18789:18789"
 
     deploy:
       resources:
         limits:
-          memory: 4G # 预留足够内存以支持后续 install_all.sh 安装 Torch
+          memory: 4G
